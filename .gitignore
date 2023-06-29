@@ -3,3 +3,4 @@ venv/
 ep.py
 palette.png
 *.sh
+frames/*.png
