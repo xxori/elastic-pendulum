@@ -25,7 +25,7 @@ The software has two primary modes, `plot_stats` and `animate`. `plot_stats` wil
 ![stats output](.github/out.png)
 `animate` will render frames to `frames/%04d.png` and then render them to an output file (`out.gif` by default) using `ffmpeg`. The gif will resemble the following:
 
-<img src=".github/out.gif" width="250" alt="Animated GIF of system">
+<img src=".github/out.gif" width="350" alt="Animated GIF of system">
 
 To switch between these modes, simply scroll to the bottom of `simulator.py` and comment or uncomment either line.
 
@@ -34,7 +34,7 @@ The starting conditions of the system can be modified by editing `l0, k, m, g,` 
 ## Derivation
 The above formulas can be derived using the [Euler-Lagrange Equation](https://en.wikipedia.org/wiki/Euler-Lagrange_equation). Firstly, the system and variables must be defined: 
 
-<img src=".github/diagram.png" width="250" alt="Diagram of system">
+<img src=".github/diagram.png" width="350" alt="Diagram of system">
 
 $\theta(t)$ is the angle of the pendulum from verticle, $x(t)$ is the distance the spring is stretched from equilibrium, $l$ is the total length of the spring ($l_0+x$ where $l_0$ is the equilibrium length), $g$ is the gravitational acceleration constant (set to $9.81ms^{-1}$), $m$ is the mass of the pendulum weight, and $k$ is the spring constant in $Nm^{-1}$ (See [Hooke's Law](https://en.wikipedia.org/wiki/Hooke's_law)). Also, the vertical axis is defined as upwards while the horizontal axis is defined as towards the right.
 

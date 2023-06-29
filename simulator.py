@@ -51,7 +51,6 @@ di = int(1/fps/dt)
 
 def animate_frame(i,ax):
     ax.text(0,1,f"Time {i//di/fps}\n$\\theta={round(np.rad2deg(theta[i]),2)}^\\circ$\n"+r"$\dot{\theta}"+f"={round(np.rad2deg(thetadot[i]),2)}^\\circ/s$\n$l={round(l[i],2)}m$\n"+r"$\dot{l}"+f"={round(ldot[i],2)}m/s$",horizontalalignment="left",verticalalignment="center",transform=ax.transAxes)
-    ax.text(0.8,1,r"$\ddot{l}=l\dot{\theta}^2-\frac{k}{m}(l-l_0)+g\cos{\theta}$"+"\n"+r"$\ddot{\theta}=\frac{1}{l}\left(-g\sin{\theta}-2\dot{\theta}\dot{l}\right)$",horizontalalignment="center",verticalalignment="center",transform=ax.transAxes)
     trail(i,ax)
     ax.add_patch(Circle((0,0),0.025,zorder=10)) # Anchor of pendulum
     ax.add_patch(Circle((x[i],y[i]),0.05,zorder=10)) # Pendulum mass
