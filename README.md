@@ -34,7 +34,7 @@ The starting conditions of the system can be modified by editing `l0, k, m, g,` 
 ## Derivation
 The above formulas can be derived using the [Euler-Lagrange Equation](https://en.wikipedia.org/wiki/Euler-Lagrange_equation). Firstly, the system and variables must be defined: 
 
-<img src=".github/diagram.png" width="350" alt="Diagram of system">
+<img src=".github/diagram.jpg" width="350" alt="Diagram of system">
 
 $\theta(t)$ is the angle of the pendulum from verticle, $x(t)$ is the distance the spring is stretched from equilibrium, $l$ is the total length of the spring ($l_0+x$ where $l_0$ is the equilibrium length), $g$ is the gravitational acceleration constant (set to $9.81ms^{-1}$), $m$ is the mass of the pendulum weight, and $k$ is the spring constant in $Nm^{-1}$ (See [Hooke's Law](https://en.wikipedia.org/wiki/Hooke's_law)). Also, the vertical axis is defined as upwards while the horizontal axis is defined as towards the right.
 
