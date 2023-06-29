@@ -24,14 +24,17 @@ sudo pacman -S ffmpeg
 The software has two primary modes, `plot_stats` and `animate`. `plot_stats` will show a graph resembling the following:
 ![stats output](.github/out.png)
 `animate` will render frames to `frames/%04d.png` and then render them to an output file (`out.gif` by default) using `ffmpeg`. The gif will resemble the following:
-![animation output](.github/out.gif)
+
+<img src=".github/out.gif" width="250" alt="Animated GIF of system">
 
 To switch between these modes, simply scroll to the bottom of `simulator.py` and comment or uncomment either line.
 
 The starting conditions of the system can be modified by editing `l0, k, m, g,` and `s0` in `simulator.py`. Additionally, some parameters regarding the simulation and rendering can be edited: `tmax, dt, fps`.
 
 ## Derivation
-The above formulas can be derived using the [Euler-Lagrange Equation](https://en.wikipedia.org/wiki/Euler%25E2%2580%2593Lagrange_equation). Firstly, the system and variables must be defined: ![Diagram of system](.github/diagram.png)
+The above formulas can be derived using the [Euler-Lagrange Equation](https://en.wikipedia.org/wiki/Euler%25E2%2580%2593Lagrange_equation). Firstly, the system and variables must be defined: 
+
+<img src=".github/diagram.png" width="250" alt="Diagram of system">
 
 $\theta(t)$ is the angle of the pendulum from verticle, $x(t)$ is the distance the spring is stretched from equilibrium, $l$ is the total length of the spring ($l_0+x$ where $l_0$ is the equilibrium length), $g$ is the gravitational acceleration constant (set to $9.81ms^{-1}$), $m$ is the mass of the pendulum weight, and $k$ is the spring constant in $Nm^{-1}$ (See [Hooke's Law](https://en.wikipedia.org/wiki/Hooke%2527s_law)). Also, the vertical axis is defined as upwards while the horizontal axis is defined as towards the right.
 
