@@ -31,6 +31,8 @@ To switch between these modes, simply scroll to the bottom of `simulator.py` and
 
 The starting conditions of the system can be modified by editing `l0, k, m, g,` and `s0` in `simulator.py`. Additionally, some parameters regarding the simulation and rendering can be edited: `tmax, dt, fps`.
 
+There is an additional mode `time_for_n_swings`, which will compute how many seconds the pendulum takes to complete $n$ total swings. It does this by taking the result from the numeric integration and scanning through the values of $\dot\theta$. When it equals $0$ (excluding $t=0$), or, alternatively, its sign changes in one change of $dt$ (by Intermediate Value Theorem), that means the pendulum has turned around once. The number of times it has changed directions is twice the number of completed swings (using floor division). Thus, we can grab the $2n-1$ index from the $\dot\theta$ values. If there is no turnaround, we double the timespan simulated and try again using recursion. Since scipy is quite fast and the tmax computed increases exponentially, this can calculate up to large numbers of swings such as $100$ or even $1000$ quite quickly.
+
 ## Derivation
 The above formulas can be derived using the [Euler-Lagrange Equation](https://en.wikipedia.org/wiki/Euler-Lagrange_equation). Firstly, the system and variables must be defined: 
 

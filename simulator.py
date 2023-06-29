@@ -4,21 +4,33 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
 import matplotlib
 import subprocess
-
 matplotlib.rcParams.update({"font.size":16,"mathtext.fontset":"cm"})
 
+###########################################################
+# Section: Input parameters of the system
+
 l0 = 1  # Spring equilibrium length (m)
-k = 50 # Spring constant (N/m)
+k = 40 # Spring constant (N/m)
 m = 2  # Mass of weight (kg)
 g = 9.81  # Constant of gravitational acceleration (m/s/s)
 
 s0 = [ # Starting conditions state vector
-    3*np.pi/4, # Theta (rad)
+    np.pi/2, # Theta (rad)
     0, # Theta dot (rad/second)
     l0, # l (metres)
     0, # l dot (metres/second)
 ]  
 
+###########################################################
+# Section: Input parameters unrelated to the physics 
+# simulation but affecting the output values and visualisations
+
+tmax = 20  # Maximum time / length of simulation (s)
+dt = 0.01  # Time spacing between values calculated (s)
+
+fps = 20 # fps of output gif
+
+###########################################################
 
 def derivatives(t, s):
     """Calculate first derivatives of all variables in state vector s"""
@@ -30,14 +42,21 @@ def derivatives(t, s):
     ldotdot = (l * thetadot**2 - (k * (l - l0)) / m + g * np.cos(theta))  # Just replacing x with l-l0 here
     return thetadot, thetadotdot, ldot, ldotdot
 
+def turnaround_times():
+   # Find times when the pendulum turns around i.e. dtheta = 0 or dtheta = 0 at some time between dt's
+   # Applying Intermediate Value Theorem, if dtheta is positive/negative at one dt and negative/positive
+   # at the next, there must be some root inbetween those t's
+   for i,dtheta in enumerate(s["y"][1]):
+    if dtheta==0 and i!=0:
+        yield i
+        continue
+    if i != len(s["y"][1])-1:
+        if dtheta>0 and s["y"][1][i+1]<0 or dtheta<0 and s["y"][1][i+1]>0:
+            yield i
 
-tmax = 10  # Maximum time / length of simulation (s)
-dt = 0.01  # Time spacing between values calculated (s)
 
 t = np.arange(0, tmax+dt, dt)  # All time values to be used
-
 s = solve_ivp(derivatives,(0,tmax+dt),s0,t_eval=t) # Calculate the state at each time with numerical integration
-print(s["message"])
 assert s["success"] == True
 
 theta,thetadot,l,ldot = s["y"] # Unpacking the solved angle and length for all t
@@ -46,12 +65,11 @@ theta,thetadot,l,ldot = s["y"] # Unpacking the solved angle and length for all t
 x = l * np.sin(theta)
 y = -l * np.cos(theta)
 
-fps = 20
 di = int(1/fps/dt)
 
 def animate_frame(i,ax):
-    ax.text(0,1,f"Time {i//di/fps}\n$\\theta={round(np.rad2deg(theta[i]),2)}^\\circ$\n"+r"$\dot{\theta}"+f"={round(np.rad2deg(thetadot[i]),2)}^\\circ/s$\n$l={round(l[i],2)}m$\n"+r"$\dot{l}"+f"={round(ldot[i],2)}m/s$",horizontalalignment="left",verticalalignment="center",transform=ax.transAxes)
-    trail(i,ax)
+    ax.text(0,0.8,f"Time {i//di/fps}\nSwung {len(set(filter(lambda x: x*dt<=i//di/fps,turnarounds)))//2}\n$\\theta={round(np.rad2deg(theta[i]),2)}^\\circ$\n"+r"$\dot{\theta}"+f"={round(np.rad2deg(thetadot[i]),2)}^\\circ/s$\n$l={round(l[i],2)}m$\n"+r"$\dot{l}"+f"={round(ldot[i],2)}m/s$",horizontalalignment="left",verticalalignment="center",transform=ax.transAxes)
+    trail(i,ax) 
     ax.add_patch(Circle((0,0),0.025,zorder=10)) # Anchor of pendulum
     ax.add_patch(Circle((x[i],y[i]),0.05,zorder=10)) # Pendulum mass
     ax.plot((0,x[i]),(0,y[i])) # Draw line connecting the two
@@ -118,6 +136,25 @@ def plot_info():
     fig.savefig("out.png",dpi=128)
     plt.show()
 
+def time_for_n_swing(n: int):
+    global tmax,t,dt, turnarounds,s
+    turnarounds = list(turnaround_times()) # Times when the pendulum turns around
+    if len(turnarounds) >= 2*n-1:
+        return turnarounds[2*n-1]*dt
+    # We need to calculate some more
+    tmax *= 2
+    t=np.arange(0,tmax+dt,dt)
+    print(f"Computing one more iteration with max {tmax} seconds")
+    s = solve_ivp(derivatives,(0,tmax+dt),s0,t_eval=t)
+    turnarounds = list(turnaround_times())
+    return time_for_n_swing(int(n))
+
+
 if __name__ == "__main__":
-    # plot_info()
-    animate()
+
+###########################################################
+# Uncomment and comment below to change program functionality used
+
+    # # plot_info()
+    # animate()
+    print(round(time_for_n_swing(10),2),"seconds")
