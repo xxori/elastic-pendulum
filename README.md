@@ -74,3 +74,5 @@ The same equation can be used with $\theta$ in place of $x$.
 \therefore \ddot\theta &=\frac{-g\sin\theta-2\dot x\dot\theta}{l_0+x}\quad (3)
 \end{align*}
 ```
+
+Additionally, notice that if we force $x$ and its derivatives to 0 then we are given the equations of a simple fixed-length pendulum. If we force $\theta$ and its derivatives to 0, we are given the equations of a simple 1-dimensional spring oscillator. Thus, these equations contain both systems within them.
