@@ -41,29 +41,30 @@ $\theta(t)$ is the angle of the pendulum from verticle, $x(t)$ is the distance t
 Firstly, consider the Lagrangian function $L=T-V$ where $T$ is the kinetic energy of the system and $V$ is the potential energy of the system. $T$ is simply $\frac{1}{2}mv^2$, which can be written using $\theta$ and $x$ by combining the radial and tangential velocities with Pythagoras: $T=\frac{1}{2}m(\dot x^2+(l\dot\theta)^2)=\frac{1}{2}m(\dot x^2+(l_0+x)^2\dot\theta^2)$. The potential energy $V$ can be written as the combination of the spring's potential energy, given by Hooke's Law, and the gravitational potential energy: $V=V_g+V_k$. $V_g=-mgh$. $h$ can be found using simple right-angled trigonometry with $l$ and $\theta$, giving $V_g=-mgl\cos\theta=-mg(l_0+x)\cos\theta$. The spring's potential energy can be given as simply $\frac{1}{2}kx^2$, thus the Lagrangian function is given by
 
 ```math
-\begin{align\*}L[\theta,\dot\theta,x,\dot x]&=\frac{1}{2}m(\dot x^2+(l_0+x)^2\dot\theta^2)+mg(l_0+x)\cos\theta-\frac{1}{2}kx^2\\
+\begin{align*}
+L[\theta,\dot\theta,x,\dot x]&=\frac{1}{2}m(\dot x^2+(l_0+x)^2\dot\theta^2)+mg(l_0+x)\cos\theta-\frac{1}{2}kx^2\\
 &=\frac{1}{2}m\dot x^2+\frac{1}{2}m(l_0+x)^2\dot\theta^2+mg(l_0+x)\cos\theta-\frac{1}{2}kx^2\quad(1)
-\end{align\*}
+\end{align*}
 ```
 
 Now, we can apply the Euler-Lagrange function:
 
 ```math
-\begin{align\*}
+\begin{align*}
 \frac{\partial L}{\partial x}&=\frac{d}{dt}\left(\frac{\partial L}{\partial \dot x}\right) \\
 m(l_0+x)\dot\theta^2+mg\cos\theta-kx&=\frac{d}{dt}\left(m\dot x\right) \\
 &=m\ddot x \\
 \therefore \ddot x&=(l_0+x)\dot\theta^2+g\cos\theta-\frac{k}{m}x\quad (2)
-\end{align\*}
+\end{align*}
 ```
 
 The same equation can be used with $\theta$ in place of $x$.
 
 ```math
-\begin{align\*}
+\begin{align*}
 \frac{\partial L}{\partial\theta}&=\frac{d}{dt}\left(\frac{\partial L}{\partial\dot\theta}\right) \\
 -mg(l_0+x)\sin\theta&=\frac{d}{dt}\left(m(l_0+x)^2\dot\theta\right) \\
 &=2m(l_0+x)\dot x\dot\theta+m(l_0+x)^2\ddot\theta \\
 \therefore \ddot\theta &=\frac{-g\sin\theta-2\dot x\dot\theta}{l_0+x}\quad (3)
-\end{align\*}
+\end{align*}
 ```
